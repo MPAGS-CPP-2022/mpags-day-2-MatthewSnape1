@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include "TransformChar.hpp"
 
 bool ProcessCmdLne(
@@ -60,16 +61,50 @@ bool ProcessCmdLne(
         }
     }
 
+    char in_char{'x'};
+
+    std::string intext;
+
         // Read in user input from stdin/file
     // Warn that input file option not yet implemented
     if (!inputFileName.empty()) {
-        std::cerr << "[warning] input from file ('" << inputFileName
-                  << "') not implemented yet, using stdin\n";
+        std::ifstream in_file {inputFileName};
+
+        if (!in_file.good()){
+            std::cerr <<"unable to open file" << std::endl;
+            return 1;
+        }
+
+        while (in_file >> in_char) {
+            intext += TransformChar(in_char);
+
+        }
     }
+    else
+    {
+        while (std::cin >> in_char) {
+            intext += TransformChar(in_char);
+
+        }
+
+    }
+
     // Warn that output file option not yet implemented
     if (!outputFileName.empty()) {
-        std::cerr << "[warning] output to file ('" << outputFileName
-                  << "') not implemented yet, using stdout\n";
+        std::ofstream out_file {outputFileName};
+
+        if (!out_file.good()){
+            std::cerr << "Unable to Save File";
+        }
+
+        out_file << intext << std::endl;
+
+    }
+    else
+    {
+
+        std::cout << intext << std::endl;
+
     }
 
     // Handle help, if requested
@@ -100,8 +135,8 @@ bool ProcessCmdLne(
     }
 
     // Initialise variables
-    char in_char{'x'};
-    std::string intext;
+    //char in_char{'x'};
+    //std::string intext;
 
     // loop over each character from user input
     while (std::cin >> in_char) {
@@ -112,6 +147,7 @@ bool ProcessCmdLne(
     
     std::cout << intext << std::endl;
 
-return true;
+    return true;
 
 }
+    
