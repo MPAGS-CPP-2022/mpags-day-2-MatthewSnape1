@@ -1,6 +1,6 @@
 #include <vector>
 #ifndef PROCESSCMDLNE_HPP
-#define PROCESSCMDLNE_TRANSFORMCHAR_HPP
+#define PROCESSCMDLNE_HPP
 
 #include <string>
 

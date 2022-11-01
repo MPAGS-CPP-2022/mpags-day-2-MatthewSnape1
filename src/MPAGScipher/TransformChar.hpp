@@ -1,9 +1,9 @@
-#ifndef MPAGSCIPHER_TRANSFORMCHAR_HPP
-#define MPAGSCIPHER_TRANSFORMCHAR_HPP
+#ifndef TRANSFORMCHAR_HPP
+#define TRANSFORMCHAR_HPP
 
 #include <string>
 
 std::string TransformChar (const char in_char);
 
-#endif // MPAGSCIPHER_TRANSFORMCHAR_HPP
+#endif // TRANSFORMCHAR_HPP
 

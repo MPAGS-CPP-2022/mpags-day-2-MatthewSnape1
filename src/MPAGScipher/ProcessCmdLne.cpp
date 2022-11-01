@@ -75,22 +75,24 @@ bool ProcessCmdLne(
             return false;
         }
     }
-
-    if (encrypt && decrypt){
-        std::cerr << "[error] Cannot decrypt and encrypt at the same time\n\n";
-        return false;
-
-    }else if (!encrypt && !decrypt){       
-        std::cerr << "[error] Must select to either encrypt or decrypt\n\n";
-        return false;
-    }else{
-        std::cout << "Please Enter Key: ";
-        std::cin >> key;
-        if (key > 25 || key < 1){
-            std::cerr << "[error] key must be between 1 and 25\n\n";
+    if (!helpRequested && !versionRequested){
+        if (encrypt && decrypt){
+            std::cerr << "[error] Cannot decrypt and encrypt at the same time\n\n";
             return false;
+
+        }else if (!encrypt && !decrypt){       
+            std::cerr << "[error] Must select to either encrypt or decrypt\n\n";
+            return false;
+        }else{
+            std::cout << "Please Enter Key: ";
+            std::cin >> key;
+            if (key > 25 || key < 1){
+                std::cerr << "[error] key must be between 1 and 25\n\n";
+                return false;
+            }
+            
         }
-        
+
     }
 
     char in_char{'x'};
