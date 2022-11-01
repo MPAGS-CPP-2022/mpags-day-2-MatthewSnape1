@@ -9,6 +9,7 @@ bool ProcessCmdLne(
     bool& helpRequested,
     bool& versionRequested,
     std::string& inputFileName,
-    std::string& outputFileName);
+    std::string& outputFileName
+    );
 
 #endif // PROCESSCMDLNE_HPP

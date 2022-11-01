@@ -10,9 +10,16 @@ bool ProcessCmdLne(
     bool& helpRequested,
     bool& versionRequested,
     std::string& inputFileName,
-    std::string& outputFileName)
+    std::string& outputFileName
+    )
 
     {
+
+    bool encrypt{false};
+
+    bool decrypt{false};
+
+    int key;
 
     const std::size_t nCmdLineArgs{args.size()};
 
@@ -52,6 +59,14 @@ bool ProcessCmdLne(
                 outputFileName = args[i + 1];
                 ++i;
             }
+        }else if (args[i] == "-e") {
+
+            encrypt = true;
+        
+        }else if (args[i] == "-d"){
+
+            decrypt = true;
+
         } else {
             // Have an unknown flag to output error message and return non-zero
             // exit status to indicate failure
@@ -59,6 +74,23 @@ bool ProcessCmdLne(
                       << "'\n";
             return false;
         }
+    }
+
+    if (encrypt && decrypt){
+        std::cerr << "[error] Cannot decrypt and encrypt at the same time\n\n";
+        return false;
+
+    }else if (!encrypt && !decrypt){       
+        std::cerr << "[error] Must select to either encrypt or decrypt\n\n";
+        return false;
+    }else{
+        std::cout << "Please Enter Key: ";
+        std::cin >> key;
+        if (key > 25 || key < 1){
+            std::cerr << "[error] key must be between 1 and 25\n\n";
+            return false;
+        }
+        
     }
 
     char in_char{'x'};
@@ -111,7 +143,7 @@ bool ProcessCmdLne(
     if (helpRequested) {
         // Line splitting for readability
         std::cout
-            << "Usage: mpags-cipher [-h/--help] [--version] [-i <file>] [-o <file>]\n\n"
+            << "Usage: mpags-cipher [-h/--help] [--version] [-i <file>] [-o <file>] [-e/-d] [key]\n\n"
             << "Encrypts/Decrypts input alphanumeric text using classical ciphers\n\n"
             << "Available options:\n\n"
             << "  -h|--help        Print this help message and exit\n\n"
@@ -120,6 +152,9 @@ bool ProcessCmdLne(
             << "                   Stdin will be used if not supplied\n\n"
             << "  -o FILE          Write processed text to FILE\n"
             << "                   Stdout will be used if not supplied\n\n"
+            << "  -e               This tells the code to encrypt the message\n\n"
+            << "  -d               This tells the programme to decrypt the file\n\n "
+            << "  Enter one integer between 1 and 25 for the cipher key when prompted\n\n"
             << std::endl;
         // Help requires no further action, so return from main
         // with 0 used to indicate success
@@ -146,6 +181,10 @@ bool ProcessCmdLne(
     // Print out the transliterated text
     
     std::cout << intext << std::endl;
+
+    if (encrypt == decrypt){
+        std::cout << "Both!";
+    }
 
     return true;
 
