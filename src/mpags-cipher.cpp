@@ -4,6 +4,7 @@
 #include <vector>
 #include "TransformChar.hpp"
 #include "ProcessCmdLne.hpp"
+#include "runcipher.hpp"
 
 int main(int argc, char* argv[])
 {

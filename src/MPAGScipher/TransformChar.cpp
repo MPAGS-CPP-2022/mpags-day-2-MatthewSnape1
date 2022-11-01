@@ -3,52 +3,58 @@
 #include <string>
 #include <vector>
 #include "TransformChar.hpp"
+#include "runcipher.hpp"
 
-std::string TransformChar (const char in_char){
+std::string TransformChar (const char in_char, int cipherkey, bool decrypt){
 
-    std::string intext;
+    std::string out;
+    char nums{};
 
     if (std::isalpha(in_char)) {
-         intext += std::toupper(in_char);
-            //return;
+         out += in_char;
+ 
+    }else{
+        nums += in_char;
         }
 
+    out = runcipher(out,cipherkey,decrypt);
+
     // Transliterate digits to English words
-    switch (in_char) {
+    switch (nums) {
         case '0':
-         intext += "ZERO";
+         out += "ZERO";
             break;
          case '1':
-          intext += "ONE";
+          out += "ONE";
           break;
         case '2':
-         intext += "TWO";
-         break;
+            out += "TWO";
+            break;
          case '3':
-           intext += "THREE";
+           out += "THREE";
            break;
         case '4':
-           intext += "FOUR";
+           out += "FOUR";
            break;
         case '5':
-            intext += "FIVE";
+            out += "FIVE";
             break;
         case '6':
-           intext += "SIX";
+           out += "SIX";
            break;
         case '7':
-          intext += "SEVEN";
+          out += "SEVEN";
           break;
         case '8':
-            intext += "EIGHT";
+            out += "EIGHT";
             break;
         case '9':
-         intext += "NINE";
+            out += "NINE";
             break;
     }
 
         // If the character isn't alphabetic or numeric, DONT add it
-    return intext;
+    return out;
 
     return 0;
 

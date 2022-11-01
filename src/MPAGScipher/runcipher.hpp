@@ -5,7 +5,8 @@
 
 std::string runcipher(
     std::string input,
-    int key
+    int key,
+    const bool decrypt
     );
 
 #endif //RUNCIPHER_HPP

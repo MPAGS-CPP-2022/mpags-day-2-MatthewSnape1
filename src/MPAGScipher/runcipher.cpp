@@ -3,22 +3,30 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <bits/stdc++.h>
 #include "runcipher.hpp"
 
 std::string runcipher(
     std::string input,
-    int key
+    int key,
+    const bool decrypt
     )
     {
-        std::vector<char> abc = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}; 
+        std::vector<char> abc = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; 
         std::string out;
-        std::vector<std::string> vec_str = {"msg1", "msg2"};
         int index;
         int len = input.length();
 
+        if (decrypt == true){
+            key = -key;
+        }
+
         for (int i = 0;i < len;i++){
 
+            input[i] = toupper(input[i]);
+
             for (size_t j = 0;j < abc.size();j++){
+
                 if (abc[j] == input[i]){
 
                     index = j;
@@ -30,6 +38,10 @@ std::string runcipher(
             index = index + key;
 
             index = index % 26;
+
+            if (index < 0){
+                index = index + 26;
+            }
             
             std::string let{abc[index]};
 

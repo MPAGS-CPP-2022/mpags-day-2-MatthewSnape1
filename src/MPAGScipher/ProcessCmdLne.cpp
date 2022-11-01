@@ -110,14 +110,14 @@ bool ProcessCmdLne(
         }
 
         while (in_file >> in_char) {
-            intext += TransformChar(in_char);
+            intext += TransformChar(in_char,key,decrypt);
 
         }
     }
     else
     {
         while (std::cin >> in_char) {
-            intext += TransformChar(in_char);
+            intext += TransformChar(in_char,key,decrypt);
 
         }
 
@@ -172,21 +172,15 @@ bool ProcessCmdLne(
     }
 
     // Initialise variables
-    //char in_char{'x'};
-    //std::string intext;
 
     // loop over each character from user input
     while (std::cin >> in_char) {
-        intext += TransformChar(in_char);
+        intext += TransformChar(in_char,key,decrypt);
     }
 
     // Print out the transliterated text
     
-    std::cout << intext << std::endl;
-
-    if (encrypt == decrypt){
-        std::cout << "Both!";
-    }
+    //std::cout << intext << std::endl;
 
     return true;
 
