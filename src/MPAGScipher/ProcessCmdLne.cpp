@@ -70,14 +70,14 @@ bool ProcessCmdLne(
             decrypt = true;
 
         } else if (args[i] == "-k"){
-
+            //checks only one key has been entered
             if (keyset == true){
                 std::cerr << "[error] only enter one key" << std::endl;
                 return false;
             }
-
+            //checks that the cipher key is between 1 and 25
             keyset = true;
-            key = stoul(args[i+1]);
+            key = abs(stoul(args[i+1]));//does not work with non integer
             if (key > 25 || key < 1){
                 std::cerr << "Key must be integer between 1 and 25" << std::endl;
                 return false;
@@ -92,6 +92,7 @@ bool ProcessCmdLne(
             return false;
         }
     }
+    //checks that user has selected only chosen either to decrypt or encrypt
     if (!helpRequested && !versionRequested){
         if (encrypt && decrypt){
             std::cerr << "[error] Cannot decrypt and encrypt at the same time\n\n";
@@ -126,7 +127,7 @@ bool ProcessCmdLne(
     else
     {
         while (std::cin >> in_char) {
-            intext += TransformChar(in_char,key,decrypt);
+            intext += TransformChar(in_char,key,decrypt);//if no input file then take input directly from user
 
         }
 
