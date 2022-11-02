@@ -8,19 +8,15 @@
 std::string TransformChar (const char in_char, int cipherkey, bool decrypt){
 
     std::string out;
-    char nums{};
+
 
     if (std::isalpha(in_char)) {
-         out += in_char;
+         out += toupper(in_char);
  
-    }else{
-        nums += in_char;
-        }
-
-    out = runcipher(out,cipherkey,decrypt);
+    }
 
     // Transliterate digits to English words
-    switch (nums) {
+    switch (in_char) {
         case '0':
          out += "ZERO";
             break;
@@ -54,6 +50,9 @@ std::string TransformChar (const char in_char, int cipherkey, bool decrypt){
     }
 
         // If the character isn't alphabetic or numeric, DONT add it
+
+    out = runcipher(out,cipherkey,decrypt);
+
     return out;
 
     return 0;

@@ -23,12 +23,9 @@ std::string runcipher(
 
         for (int i = 0;i < len;i++){
 
-            input[i] = toupper(input[i]);
-
             for (size_t j = 0;j < abc.size();j++){
 
                 if (abc[j] == input[i]){
-
                     index = j;
                     break;
                 }
@@ -49,7 +46,7 @@ std::string runcipher(
 
         }
 
-        std::cout << out << std::endl;
+        //std::cout << out << std::endl;
 
         return out;
 

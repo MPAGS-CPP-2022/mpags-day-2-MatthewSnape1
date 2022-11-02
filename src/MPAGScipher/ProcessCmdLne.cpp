@@ -21,6 +21,8 @@ bool ProcessCmdLne(
 
     int key;
 
+    bool keyset{false};
+
     const std::size_t nCmdLineArgs{args.size()};
 
     // Options that might be set by the command-line arguments
@@ -67,7 +69,22 @@ bool ProcessCmdLne(
 
             decrypt = true;
 
-        } else {
+        } else if (args[i] == "-k"){
+
+            if (keyset == true){
+                std::cerr << "[error] only enter one key" << std::endl;
+                return false;
+            }
+
+            keyset = true;
+            key = stoul(args[i+1]);
+            if (key > 25 || key < 1){
+                std::cerr << "Key must be integer between 1 and 25" << std::endl;
+                return false;
+            }
+            ++i;
+        
+        }else {
             // Have an unknown flag to output error message and return non-zero
             // exit status to indicate failure
             std::cerr << "[error] unknown argument '" << args[i]
@@ -83,16 +100,8 @@ bool ProcessCmdLne(
         }else if (!encrypt && !decrypt){       
             std::cerr << "[error] Must select to either encrypt or decrypt\n\n";
             return false;
-        }else{
-            std::cout << "Please Enter Key: ";
-            std::cin >> key;
-            if (key > 25 || key < 1){
-                std::cerr << "[error] key must be between 1 and 25\n\n";
-                return false;
-            }
-            
         }
-
+            
     }
 
     char in_char{'x'};
@@ -156,7 +165,7 @@ bool ProcessCmdLne(
             << "                   Stdout will be used if not supplied\n\n"
             << "  -e               This tells the code to encrypt the message\n\n"
             << "  -d               This tells the programme to decrypt the file\n\n "
-            << "  Enter one integer between 1 and 25 for the cipher key when prompted\n\n"
+            << "  -k int           This tell the code the key (Must be be between 1 and 25\n\n"
             << std::endl;
         // Help requires no further action, so return from main
         // with 0 used to indicate success
@@ -167,16 +176,13 @@ bool ProcessCmdLne(
     // Like help, requires no further action,
     // so return from main with zero to indicate success
     if (versionRequested) {
-        std::cout << "0.1.0" << std::endl;
+        std::cout << "0.2.0" << std::endl;
         return true;
     }
 
     // Initialise variables
 
     // loop over each character from user input
-    while (std::cin >> in_char) {
-        intext += TransformChar(in_char,key,decrypt);
-    }
 
     // Print out the transliterated text
     
